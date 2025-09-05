@@ -20,9 +20,7 @@ int main(){
     t2.join();
     auto logs = buffer.drain();
     for (const auto& log : logs) {
-        std::cout << "[" << log.timestamp.time_since_epoch().count() << "] "
-                    << static_cast<int>(log.logLevel) << ": "
-                    << log.message << std::endl;
+        std::cout << log << std::endl;
     }
     return 0;
 }

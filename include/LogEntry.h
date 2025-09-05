@@ -10,4 +10,6 @@ namespace TemporalStreamLog
         LogLevel logLevel;
         std::string message;
     };
+    std::ostream& operator<<(std::ostream& os, const LogEntry& entry);
+    const char* logLevelToString(LogLevel level);
 } // namespace TemporalStreamLog
