@@ -8,5 +8,6 @@ add_executable(server
     src/LogBuffer.cpp
     src/LogEntry.cpp
     src/LogFormatter.cpp
+    src/LogWriter.cpp
 )
 target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/include)

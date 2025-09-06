@@ -1,3 +1,4 @@
+#pragma once
 #include <map>
 #include "LogEntry.h"
 namespace TemporalStreamLog
@@ -23,4 +24,6 @@ namespace TemporalStreamLog
         // 一个私有的辅助方法，用于生成ANSI代码字符串
         std::string applyStyle(const std::string &text, const FormatStyle &style) const;
     };
+
+    static LogFormatter defaultFormatter = LogFormatter();
 } // namespace TemporalStreamLog
