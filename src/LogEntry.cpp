@@ -12,23 +12,54 @@ namespace TemporalStreamLog
     {
         LogFormatter formatter;
         if (entry.logLevel == LogLevel::INFO) {
-            formatter.setLevelStyle(LogLevel::INFO, FormatStyle{.text_color = 32}); // 绿色
+            formatter.setLevelStyle(LogLevel::INFO, FormatStyle{.text_color = TextColor::GREEN}); // 绿色
         } else if (entry.logLevel == LogLevel::WARN) {
-            formatter.setLevelStyle(LogLevel::WARN, FormatStyle{.text_color = 33, .bold = true}); // 黄色加粗
+            formatter.setLevelStyle(LogLevel::WARN, FormatStyle{.text_color = TextColor::YELLOW, .bold = true}); // 黄色加粗
         } else if (entry.logLevel == LogLevel::ERROR) {
-            formatter.setLevelStyle(LogLevel::ERROR, FormatStyle{.text_color = 31, .bold = true}); // 红色加粗
+            formatter.setLevelStyle(LogLevel::ERROR, FormatStyle{.text_color = TextColor::RED, .bold = true}); // 红色加粗
         }
-        formatter.setTimestampStyle(FormatStyle{.text_color = 36}); // 青色
+        formatter.setTimestampStyle(FormatStyle{.text_color = TextColor::CYAN}); // 青色
         formatter.setMessageStyle(FormatStyle{}); // 默认样式
         os << formatter.format(entry);
         return os;
     }
     const char* logLevelToString(LogLevel level){
         switch (level) {
-            case LogLevel::INFO: return "INFO";
-            case LogLevel::WARN: return "WARN";
-            case LogLevel::ERROR: return "ERROR";
-            default: return "UNKNOWN";
+            case LogLevel::INFO: return "[INFO]";
+            case LogLevel::WARN: return "[WARN]";
+            case LogLevel::ERROR: return "[ERROR]";
+            default: return "[UNKNOWN]";
         }
+    }
+    LogFormatter::LogFormatter(){
+        this->setLevelStyle(
+            LogLevel::INFO, 
+            FormatStyle{
+                .text_color = TextColor::GREEN, 
+                .bold = true
+            }
+        );
+        this->setLevelStyle(
+            LogLevel::WARN, 
+            FormatStyle{
+                .text_color = TextColor::YELLOW, 
+                .bold = true
+            }
+        );
+        this->setLevelStyle(
+            LogLevel::ERROR,
+            FormatStyle{
+                .text_color = TextColor::RED, 
+                .bold = true
+            }
+        );
+        this->setTimestampStyle(
+            FormatStyle{
+                .text_color = TextColor::CYAN
+            }
+        );
+        this->setMessageStyle(
+            FormatStyle{}
+        );
     }
 } // namespace TemporalStreamLog

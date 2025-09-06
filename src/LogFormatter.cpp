@@ -13,10 +13,9 @@ namespace TemporalStreamLog{
     std::string LogFormatter::format(const LogEntry &entry) const {
         // 格式化时间戳
         auto timestamp_str = std::format(
-            "{:%Y-%m-%d %H:%M:%S}",
+            "[{:%Y-%m-%d %H:%M:%S}]",
             std::chrono::time_point_cast<std::chrono::seconds>(entry.timestamp)
         ); 
-        timestamp_str.pop_back(); // 去掉换行符
 
         // 获取日志级别字符串
         std::string level_str = logLevelToString(entry.logLevel);
@@ -28,7 +27,7 @@ namespace TemporalStreamLog{
         std::string styled_message = applyStyle(entry.message, message_style_);
 
         // 组合最终字符串
-        return "[" + styled_timestamp + "] [" + styled_level + "] " + styled_message;
+        return styled_timestamp + " " +  styled_level + " " + styled_message;
     }
 
     std::string LogFormatter::applyStyle(const std::string &text, const FormatStyle &style) const {
@@ -36,12 +35,12 @@ namespace TemporalStreamLog{
         bool first = true;
 
         if (style.text_color) {
-            ansi_code += std::to_string(*style.text_color);
+            ansi_code += std::to_string(static_cast<int>(*style.text_color));
             first = false;
         }
         if (style.background_color) {
             if (!first) ansi_code += ";";
-            ansi_code += std::to_string(*style.background_color + 10); // 背景色代码比前景色代码大10
+            ansi_code += std::to_string(static_cast<int>(*style.background_color));
             first = false;
         }
         if (style.bold) {

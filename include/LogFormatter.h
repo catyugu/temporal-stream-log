@@ -5,6 +5,7 @@ namespace TemporalStreamLog
     class LogFormatter
     {
     public:
+        LogFormatter();
         // 为不同部分设置样式的方法
         void setTimestampStyle(const FormatStyle &style);
         void setMessageStyle(const FormatStyle &style);
