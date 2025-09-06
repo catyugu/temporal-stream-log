@@ -11,15 +11,6 @@ namespace TemporalStreamLog
     std::ostream& operator<<(std::ostream& os, const LogEntry& entry)
     {
         LogFormatter formatter;
-        if (entry.logLevel == LogLevel::INFO) {
-            formatter.setLevelStyle(LogLevel::INFO, FormatStyle{.text_color = TextColor::GREEN}); // 绿色
-        } else if (entry.logLevel == LogLevel::WARN) {
-            formatter.setLevelStyle(LogLevel::WARN, FormatStyle{.text_color = TextColor::YELLOW, .bold = true}); // 黄色加粗
-        } else if (entry.logLevel == LogLevel::ERROR) {
-            formatter.setLevelStyle(LogLevel::ERROR, FormatStyle{.text_color = TextColor::RED, .bold = true}); // 红色加粗
-        }
-        formatter.setTimestampStyle(FormatStyle{.text_color = TextColor::CYAN}); // 青色
-        formatter.setMessageStyle(FormatStyle{}); // 默认样式
         os << formatter.format(entry);
         return os;
     }

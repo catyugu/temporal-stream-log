@@ -13,6 +13,9 @@ namespace TemporalStreamLog
 
     std::vector<LogEntry> LogBuffer::drain()
     {
+        if (buffer_.empty()) {
+            return {};
+        }
         std::lock_guard<std::mutex> lock(mutex_);
         auto logs = std::vector<LogEntry>(buffer_.size());
         std::move(buffer_.begin(), buffer_.end(), logs.begin());
